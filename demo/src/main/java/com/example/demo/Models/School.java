@@ -3,24 +3,14 @@ package com.example.demo.Models;
 import javax.persistence.*;
 import java.util.List;
 
-
+@Entity
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-@Column(name = "School Name")
+    @Column(name = "School_Name")
     String Name;
-   List<Student> studentList;
 
-
-
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
 
     public Integer getId() {
         return id;
@@ -37,7 +27,6 @@ public class School {
     public void setName(String name) {
         Name = name;
     }
-
 
 
 }

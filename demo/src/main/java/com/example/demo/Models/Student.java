@@ -6,28 +6,31 @@ import java.util.List;
 
 @Entity
 public class Student {
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @Column(name = "Student Name")
+    @Column(name = "Student_Name")
     String studentName;
-    @Column(name = "Student Age")
+    @Column(name = "Student_Age")
     Integer studentAge;
 
-    public List<Course> getCourseList() {
-        return courseList;
+
+   @ManyToOne
+   @JoinColumn(name = "School_id",referencedColumnName = "id")
+    School school;
+
+    public School getSchool() {
+        return school;
     }
 
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
+    public void setSchool(School school) {
+        this.school = school;
     }
-
-    List<Course> courseList;
-
 
     public void setId(Integer id) {
         this.id = id;
     }
+
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
@@ -47,5 +50,7 @@ public class Student {
     public Integer getStudentAge() {
         return studentAge;
     }
+
+
 
 }

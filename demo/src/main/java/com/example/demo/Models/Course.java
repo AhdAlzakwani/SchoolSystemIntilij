@@ -3,13 +3,26 @@ package com.example.demo.Models;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @Column(name = "Course Name")
+    @Column(name = "Course_Name")
     String CourseName;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "Student_is",referencedColumnName = "id")
+    Student student;
 
     public Integer getId() {
         return id;
@@ -27,14 +40,7 @@ public class Course {
         CourseName = courseName;
     }
 
-    public List<Mark> getMarkList() {
-        return markList;
-    }
 
-    public void setMarkList(List<Mark> markList) {
-        this.markList = markList;
-    }
 
-    List<Mark> markList;
 
 }
