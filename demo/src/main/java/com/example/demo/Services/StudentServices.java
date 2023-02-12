@@ -26,6 +26,7 @@ public class StudentServices {
 //        studentInterface.delete(studentToDelete);
 //    }
 public List<Student> getAllStudent(){
+
     return studentInterface.getAllStudent();
 }
 }

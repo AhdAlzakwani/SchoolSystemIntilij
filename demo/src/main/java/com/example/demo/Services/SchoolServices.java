@@ -17,4 +17,9 @@ public class SchoolServices {
     public List<School> getAllSchools(){
        return schoolInterfase.getAllSchools();
     }
+
+    public School getSchoollById(Integer id){
+
+        return schoolInterfase.getSchoollById(id);
+    }
 }

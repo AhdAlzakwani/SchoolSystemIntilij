@@ -11,10 +11,7 @@ import com.example.demo.Services.StudentServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
@@ -64,6 +61,12 @@ public class Controllers {
     public List<Mark> getAllMark(){
         List<Mark> mark = markServices.getAllMark();
         return mark;
+    }
+
+    @RequestMapping(value="school/getById", method = RequestMethod.GET)
+    public School getSchoollById(@RequestParam Integer id){
+       School school = schoolServices.getSchoollById(id);
+       return school;
     }
 //    @GetMapping(value ="addStudent")
 //    public String addStudent(){
