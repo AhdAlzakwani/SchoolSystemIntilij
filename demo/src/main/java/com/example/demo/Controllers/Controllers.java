@@ -63,11 +63,60 @@ public class Controllers {
         return mark;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @RequestMapping(value="school/getById", method = RequestMethod.GET)
     public School getSchoollById(@RequestParam Integer id){
        School school = schoolServices.getSchoollById(id);
        return school;
     }
+
+    @RequestMapping(value="student/getById", method = RequestMethod.GET)
+    public Student getStudentById(@RequestParam Integer id){
+        Student student = studentServices.getStudentById(id);
+        return student;
+    }
+
+    @RequestMapping(value="course/getById", method = RequestMethod.GET)
+    public Course getCourseById(@RequestParam Integer id){
+        Course course = courseServices.getCourseById(id);
+        return course;
+    }
+
+    @RequestMapping(value="mark/getById", method = RequestMethod.GET)
+    public Mark getMArkById(@RequestParam Integer id){
+        Mark mArk = markServices.getMarkById(id);
+        return mArk;
+    }
+
+
+    public School getSchoolById(@RequestParam Integer schoolId) {
+        School school = schoolServices.getSchoollById(schoolId);
+        return school;
+    }
+//    @RequestMapping(value="student/getByName", method = RequestMethod.GET)
+//    public List<Student> getSchoollByName(@RequestParam String name){
+//        return studentServices.getSchoollByName(name);
+//    }
 //    @GetMapping(value ="addStudent")
 //    public String addStudent(){
 //
@@ -83,5 +132,10 @@ public class Controllers {
 //    }
 
 
+    @RequestMapping(value = "student/getStudentsBySchoolName", method = RequestMethod.GET)
+    public List<Student> getStudentsBySchoolName(@RequestParam String schoolName) {
 
+        return studentServices.getStudentsBySchoolName(schoolName);
+
+    }
 }

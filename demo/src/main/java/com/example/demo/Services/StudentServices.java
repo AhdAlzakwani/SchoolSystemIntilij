@@ -1,7 +1,9 @@
 package com.example.demo.Services;
 
 import com.example.demo.Models.Course;
+import com.example.demo.Models.School;
 import com.example.demo.Models.Student;
+import com.example.demo.Repositories.SchoolInterfase;
 import com.example.demo.Repositories.StudentInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class StudentServices {
 
     @Autowired
     StudentInterface studentInterface;
+    @Autowired
+    SchoolInterfase schoolInterfase;
 
 //    public void addStudent(){
 //        Student studentToInseert = new Student();
@@ -29,4 +33,18 @@ public List<Student> getAllStudent(){
 
     return studentInterface.getAllStudent();
 }
+
+    public Student getStudentById(Integer id){
+
+        return studentInterface.getStudentById(id);
+    }
+
+
+    public List<Student> getStudentsBySchoolName(String schoolName){
+        School school = schoolInterfase.getBySchoolName(schoolName);
+        Integer schoolId = school.getId();
+        List<Student> studentList = studentInterface.getStudentsBySchoolId(schoolId);
+        return studentList;
+    }
+
 }

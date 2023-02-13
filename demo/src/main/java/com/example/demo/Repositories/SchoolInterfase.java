@@ -16,7 +16,11 @@ public interface SchoolInterfase extends CrudRepository<Student, Integer> {
     @Query(value = "SELECT s FROM School s")
     List<School> getAllSchools();
 
-    @Query(value = "SELECT s FROM School s WHERE s.id =:id")
-    School getSchoollById(@Param("id") Integer id);
+    @Query(value = "SELECT s from School s where s.id = :schoolId")
+    School getSchoolById(@Param("schoolId") Integer id);
+
+    @Query(value = "SELECT s from School s " +
+            "WHERE s.Name = :schoolName")
+    School getBySchoolName(@Param("schoolName") String schoolName);
 
 }
