@@ -22,4 +22,8 @@ public interface MarkInterfase extends CrudRepository<Student, Integer> {
     @Query(value = "SELECT s from Mark s where s.isActive = true")
     List<Mark> getAllActiveMarks();
 
+    @Query(value = "SELECT st from Mark st " +
+            "WHERE st.course.id = :id ")
+    List<Mark> getMarksByCourseId(@Param("id") Integer id);
+
 }

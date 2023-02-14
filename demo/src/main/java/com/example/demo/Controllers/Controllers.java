@@ -76,4 +76,12 @@ public class Controllers {
         return courseServices.getCoursesByStudentName(StudentName);
 
     }
+
+
+    @RequestMapping(value = "student/getMarksByCourseName", method = RequestMethod.GET)
+    public List<Mark> getMarksByCourseName(@RequestParam String CourseName) {
+
+        return markServices.getMarksByCourseName(CourseName);
+
+    }
 }
