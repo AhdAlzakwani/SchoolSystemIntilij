@@ -22,4 +22,9 @@ public interface CourseInterfase extends CrudRepository<Student, Integer> {
     @Query(value = "SELECT s from Course s where s.isActive = true")
     List<Course> getAllActiveCourses();
 
+    @Query(value = "SELECT st from Course st " +
+            "WHERE st.student.id = :id ")
+    List<Course> getCourseByStudentId(@Param("id") Integer id);
+
+
 }

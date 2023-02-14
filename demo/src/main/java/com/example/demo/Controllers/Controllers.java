@@ -69,4 +69,11 @@ public class Controllers {
         return studentServices.getStudentsBySchoolName(schoolName);
 
     }
+
+    @RequestMapping(value = "student/getCoursesByStudentName", method = RequestMethod.GET)
+    public List<Course> getCoursesByStudentName(@RequestParam String StudentName) {
+
+        return courseServices.getCoursesByStudentName(StudentName);
+
+    }
 }

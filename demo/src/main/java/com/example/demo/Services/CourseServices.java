@@ -5,6 +5,7 @@ import com.example.demo.Models.School;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.CourseInterfase;
 import com.example.demo.Repositories.SchoolInterfase;
+import com.example.demo.Repositories.StudentInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class CourseServices {
 
     @Autowired
     CourseInterfase courseInterfase;
+    @Autowired
+    StudentInterface studentInterface ;
+
 
 
     public List<Course> getAllCourse(){
@@ -29,6 +33,14 @@ public class CourseServices {
     public List<Course> getAllActiveCourses(){
 
         return courseInterfase.getAllActiveCourses();
+    }
+
+
+    public List<Course> getCoursesByStudentName(String studentName){
+        Student student = studentInterface.getByStudentName(studentName);
+        Integer studentId = student.getId();
+        List<Course> courseList = courseInterfase.getCourseByStudentId(studentId);
+        return courseList;
     }
 
 }
