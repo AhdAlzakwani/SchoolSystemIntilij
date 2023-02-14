@@ -35,4 +35,10 @@ public class StudentController {
         List<Student>  activeStudentsList = studentServices.getAllActiveStudents();
         return activeStudentsList;
     }
+
+    @RequestMapping(value = "getAllNotStudentByIsActive")
+    public List<Student> getAllNotActiveStudents(){
+        List<Student>  activeStudentsList = studentServices.getAllNotActiveStudents();
+        return activeStudentsList;
+    }
 }

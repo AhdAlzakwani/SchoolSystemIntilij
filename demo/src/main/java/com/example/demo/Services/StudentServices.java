@@ -52,4 +52,9 @@ public List<Student> getAllStudent(){
         return studentInterface.getAllActiveStudent();
     }
 
+    public List<Student> getAllNotActiveStudents(){
+
+        return studentInterface.getAllNotActiveStudent();
+    }
+
 }

@@ -25,6 +25,8 @@ public interface StudentInterface extends CrudRepository<Student, Integer> {
 
     @Query(value = "SELECT s from Student s where s.isActive = true")
     List<Student> getAllActiveStudent();
+    @Query(value = "SELECT s from Student s where s.isActive = false")
+    List<Student> getAllNotActiveStudent();
 
 
 }
