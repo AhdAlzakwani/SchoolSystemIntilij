@@ -28,6 +28,15 @@ public class SchoolServices {
         return schoolInterfase.getBySchoolName(schoolName);
     }
 
+    public List<School> getAllActiveSchools(){
+
+        return schoolInterfase.getAllActiveSchools();
+    }
+
+    public List<School> getAllNotActiveSchools(){
+
+        return schoolInterfase.getAllNotActiveSchools();
+    }
 
 
 

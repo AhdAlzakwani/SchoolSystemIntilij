@@ -23,4 +23,9 @@ public class MarkServices {
 
         return markInterfase.getMarkById(id);
     }
+
+    public List<Mark> getAllActiveMarks(){
+
+        return markInterfase.getAllActiveMarks();
+    }
 }

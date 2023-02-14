@@ -26,4 +26,9 @@ public class CourseServices {
         return courseInterfase.getCourseById(id);
     }
 
+    public List<Course> getAllActiveCourses(){
+
+        return courseInterfase.getAllActiveCourses();
+    }
+
 }

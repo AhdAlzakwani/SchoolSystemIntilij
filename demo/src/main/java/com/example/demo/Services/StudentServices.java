@@ -47,4 +47,9 @@ public List<Student> getAllStudent(){
         return studentList;
     }
 
+    public List<Student> getAllActiveStudents(){
+
+        return studentInterface.getAllActiveStudent();
+    }
+
 }

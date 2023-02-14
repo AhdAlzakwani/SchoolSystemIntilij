@@ -23,4 +23,10 @@ public interface SchoolInterfase extends CrudRepository<Student, Integer> {
             "WHERE s.Name = :schoolName")
     School getBySchoolName(@Param("schoolName") String schoolName);
 
+    @Query(value = "SELECT s from School s where s.isActive = true")
+    List<School> getAllActiveSchools();
+
+    @Query(value = "SELECT s from School s where s.isActive = false")
+    List<School> getAllNotActiveSchools();
+
 }

@@ -40,79 +40,10 @@ public class Controllers {
     @Autowired
     MarkServices markServices  ;
 
-    @RequestMapping(value="student/getAll", method = RequestMethod.GET)
-    public List<Student> getAllStudent(){
-        List<Student> student = studentServices.getAllStudent();
-        return student;
-    }
-    @RequestMapping(value="school/getAll", method = RequestMethod.GET)
-    public List<School> getAllSchool(){
-        List<School> schools = schoolServices.getAllSchools();
-        return schools;
-    }
-
-    @RequestMapping(value="course/getAll", method = RequestMethod.GET)
-    public List<Course> getAllCourse(){
-        List<Course> course = courseServices.getAllCourse();
-        return course;
-    }
-
-    @RequestMapping(value="mark/getAll", method = RequestMethod.GET)
-    public List<Mark> getAllMark(){
-        List<Mark> mark = markServices.getAllMark();
-        return mark;
-    }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @RequestMapping(value="school/getById", method = RequestMethod.GET)
-    public School getSchoollById(@RequestParam Integer id){
-       School school = schoolServices.getSchoollById(id);
-       return school;
-    }
-
-    @RequestMapping(value="student/getById", method = RequestMethod.GET)
-    public Student getStudentById(@RequestParam Integer id){
-        Student student = studentServices.getStudentById(id);
-        return student;
-    }
-
-    @RequestMapping(value="course/getById", method = RequestMethod.GET)
-    public Course getCourseById(@RequestParam Integer id){
-        Course course = courseServices.getCourseById(id);
-        return course;
-    }
-
-    @RequestMapping(value="mark/getById", method = RequestMethod.GET)
-    public Mark getMArkById(@RequestParam Integer id){
-        Mark mArk = markServices.getMarkById(id);
-        return mArk;
-    }
-
-
-    public School getSchoolById(@RequestParam Integer schoolId) {
-        School school = schoolServices.getSchoollById(schoolId);
-        return school;
-    }
 //    @RequestMapping(value="student/getByName", method = RequestMethod.GET)
 //    public List<Student> getSchoollByName(@RequestParam String name){
 //        return studentServices.getSchoollByName(name);
