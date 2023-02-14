@@ -39,6 +39,12 @@ public class SchoolController {
         return activeSchoolsList;
     }
 
+    @RequestMapping(value = "getAllSchoolByIsNotActive")
+    public List<School> getAllNotActiveSchools(){
+        List<School>  activeSchoolsList = schoolServices.getAllActiveSchools();
+        return activeSchoolsList;
+    }
+
 
 
 
