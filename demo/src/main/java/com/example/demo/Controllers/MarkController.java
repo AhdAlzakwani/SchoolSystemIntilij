@@ -38,4 +38,10 @@ public class MarkController {
         List<Mark> activeMarksList = markServices.getAllActiveMarks();
         return activeMarksList;
     }
+
+    @RequestMapping(value="getLatest", method = RequestMethod.GET)
+    public Mark getLatestCourse() {
+        Mark mark = markServices.getLatestMark();
+        return mark;
+    }
 }

@@ -32,5 +32,11 @@ public interface StudentInterface extends CrudRepository<Student, Integer> {
             "WHERE s.studentName = :studentName")
     Student getByStudentName(@Param("studentName") String studentName);
 
+    @Query(value = "SELECT s from Student s where s.id=(SELECT max(s.id) from Student s)")
+    Student getLatestStudent();
+
+    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.id =:id")
+    Student getIdToDeleteStudentById(@Param("id") Integer id);
+
 
 }

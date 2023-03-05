@@ -41,4 +41,16 @@ public class StudentController {
         List<Student>  activeStudentsList = studentServices.getAllNotActiveStudents();
         return activeStudentsList;
     }
+
+    @RequestMapping(value="getLatest", method = RequestMethod.GET)
+    public Student getLatestStudent() {
+        Student student = studentServices.getLatestStudent();
+        return student;
+    }
+
+    @RequestMapping(value="getIdToDeleteStudentById", method = RequestMethod.GET)
+    public Student getIdToDeleteStudentById(@RequestParam Integer id){
+        Student student = studentServices.getIdToDeleteStudentById(id);
+        return student;
+    }
 }

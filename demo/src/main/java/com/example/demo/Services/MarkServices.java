@@ -39,4 +39,9 @@ public class MarkServices {
         List<Mark> marksList = markInterfase.getMarksByCourseId(courseId);
         return marksList;
     }
+
+    public Mark getLatestMark(){
+        return markInterfase.getLatestMark();
+    }
+
 }

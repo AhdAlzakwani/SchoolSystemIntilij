@@ -1,6 +1,7 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Models.Course;
+import com.example.demo.Models.School;
 import com.example.demo.Models.Student;
 import com.example.demo.Services.CourseServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,14 @@ public class CourseController {
     }
 
 
-
-
+    @RequestMapping(value="getLatest", method = RequestMethod.GET)
+    public Course getLatestCourse() {
+        Course course = courseServices.getLatestCourse();
+        return course;
+    }
+    @RequestMapping(value="getIdToDeleteStudentById", method = RequestMethod.GET)
+    public Course getIdToDeleteCourseById(@RequestParam Integer id){
+        Course Course = courseServices.getIdToDeleteCourseById(id);
+        return Course;
+    }
 }

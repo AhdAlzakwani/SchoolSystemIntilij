@@ -26,4 +26,7 @@ public interface MarkInterfase extends CrudRepository<Student, Integer> {
             "WHERE st.course.id = :id ")
     List<Mark> getMarksByCourseId(@Param("id") Integer id);
 
+    @Query(value = "SELECT s from Mark s where s.id=(SELECT max(s.id) from Mark s)")
+    Mark getLatestMark();
+
 }

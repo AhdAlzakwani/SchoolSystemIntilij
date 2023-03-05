@@ -30,5 +30,11 @@ public interface CourseInterfase extends CrudRepository<Student, Integer> {
             "WHERE s.CourseName = :courseName")
     Course getByCourseName(@Param("courseName") String courseName);
 
+    @Query(value = "SELECT s from Course s where s.id=(SELECT max(s.id) from Course s)")
+    Course getLatestCourse();
+
+    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.id =:id")
+    Course getIdToDeleteCourseById(@Param("id") Integer id);
+
 
 }

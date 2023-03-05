@@ -43,4 +43,14 @@ public class CourseServices {
         return courseList;
     }
 
+
+    public Course getLatestCourse(){
+        return courseInterfase.getLatestCourse();
+    }
+
+    public Course getIdToDeleteCourseById(Integer id){
+
+        return courseInterfase.getIdToDeleteCourseById(id);
+    }
+
 }

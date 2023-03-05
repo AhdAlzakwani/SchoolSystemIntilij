@@ -57,4 +57,13 @@ public List<Student> getAllStudent(){
         return studentInterface.getAllNotActiveStudent();
     }
 
+    public Student getLatestStudent(){
+        return studentInterface.getLatestStudent();
+    }
+    public Student getIdToDeleteStudentById(Integer id){
+
+        return studentInterface.getIdToDeleteStudentById(id);
+    }
+
+
 }
