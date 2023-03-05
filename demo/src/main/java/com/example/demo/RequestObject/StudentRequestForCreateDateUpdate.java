@@ -3,12 +3,12 @@ package com.example.demo.RequestObject;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 @Data
-public class SchoolRequest {
+public class StudentRequestForCreateDateUpdate {
 
-
-
-    String Name;
+    String date;
+    Integer id;
 }

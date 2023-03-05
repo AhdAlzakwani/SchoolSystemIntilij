@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -38,5 +39,29 @@ public interface StudentInterface extends CrudRepository<Student, Integer> {
     @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.id =:id")
     Student getIdToDeleteStudentById(@Param("id") Integer id);
 
+    @Query(value ="select s from Student s where s.updatedDate=(select max(updatedDate) from Student)")
+    Student getLatestUpdated();
 
+    @Query(value ="select s from Student s where s.createdDate >= :date")
+    <list>Student getStudentCreatedAfterDate(@Param("date") Date date);
+    @Query(value="select s from School s where s.createdDate = :createdDate")
+    Student getStudentByCreatedDate(@Param("createdDate") Date date);
+
+    @Query(value="select s from School s where s.updatedDate = :updatedDate")
+    Student getStudentByUpdatedDate(@Param("updatedDate") Date date);
+
+    @Query(value = "UPDATE Student s SET s.isActive = false")
+    Student getDeletedAllStudent();
+
+    @Query(value = "UPDATE Student s SET s.isActive = false where s.createdDate > :createdDate")
+    Student getDeleteAllStudentsCreatedAfterDate(@Param("createdDate") Date createdDate);
+
+    @Query(value = "UPDATE Student s SET s.isActive = false where s.createdDate = :createdDate")
+    <list> Student getDeleteStudentsByCreatedDate(@Param("createdDate") Date createdDate);
+
+    @Query(value = "UPDATE Student s SET s.isActive = false where s.updatedDate > :updatedDate")
+    <list> Student getsetDeleteStudentsByUpdatedDate(@Param("updatedDate") Date createdDate);
+
+    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.Name = :studentName")
+    Student getDeleteStudentsByStudentName(@Param("studentName") String schoolName);
 }

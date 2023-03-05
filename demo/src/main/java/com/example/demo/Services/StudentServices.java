@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -64,6 +68,104 @@ public List<Student> getAllStudent(){
 
         return studentInterface.getIdToDeleteStudentById(id);
     }
+    public Student getLatestUpdated() {
+
+
+        return studentInterface.getLatestUpdated();
+    }
+
+
+
+    public Student getStudentCreatedAfterDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return studentInterface.getStudentCreatedAfterDate(datecreated);
+    }
+
+
+    public Student getStudentByUpdatedDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return studentInterface.getStudentByUpdatedDate(datecreated);
+    }
+
+
+    public Student getStudentByCreatedDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return studentInterface.getStudentByCreatedDate(datecreated);
+    }
+
+
+    public Student getDeletedAllSchool(){
+
+        return studentInterface.getDeletedAllStudent();
+    }
+
+
+
+    public void setCreatDateByUserInput(String date, Integer id) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Student student = studentInterface.getStudentById(id);
+        student.setCreatedDate(javaDate);
+        studentInterface.save(student);
+
+    }
+
+    public Student getDeletedAllStudent(){
+
+        return studentInterface.getDeletedAllStudent();
+    }
+
+    public void setDeleteAllStudentsCreatedAfterDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Student student = studentInterface.getDeleteAllStudentsCreatedAfterDate(javaDate);
+        student.setActive(false);
+        studentInterface.save(student);
+
+    }
+
+    public void getDeleteStudentsByCreatedDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Student student = studentInterface.getDeleteStudentsByCreatedDate(javaDate);
+        student.setActive(false);
+        studentInterface.save(student);
+
+    }
+
+    public void setDeleteStudentsByUpdatedDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Student student = studentInterface.getsetDeleteStudentsByUpdatedDate(javaDate);
+        student.setActive(false);
+        studentInterface.save(student);
+
+    }
+
+    public void getDeleteStudentsByStudentName(String schoolName) throws ParseException {
+
+        Student student = studentInterface.getDeleteStudentsByStudentName(schoolName);
+        student.setActive(false);
+        studentInterface.save(student);
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 }

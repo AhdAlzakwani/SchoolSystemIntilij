@@ -47,15 +47,18 @@ public interface SchoolInterfase extends JpaRepository<School, Integer> {
     @Query(value="select s from School s where s.updatedDate = :updatedDate")
     School getSchoolByUpdatedDate(@Param("updatedDate") Date date);
 
-    @Query(value = "UPDATE Student s SET s.isActive = false")
-    School getDeletedAllStudent();
+    @Query(value = "UPDATE School s SET s.isActive = false")
+    School getDeletedAllSchool();
 
-    @Query(value = "UPDATE Student s SET s.isActive = false where s.createdDate > :createdDate")
+    @Query(value = "UPDATE School s SET s.isActive = false where s.createdDate = :createdDate")
     <list> School getDeleteSchoolsByCreatedDate(@Param("createdDate") Date createdDate);
 
-    @Query(value = "UPDATE Student s SET s.isActive = false where s.createdDate = :createdDate")
+
+    @Query(value = "UPDATE School s SET s.isActive = false where s.updatedDate > :updatedDate")
+    <list> School getsetDeleteSchoolsByUpdatedDate(@Param("updatedDate") Date createdDate);
+    @Query(value = "UPDATE School s SET s.isActive = false where s.createdDate > :createdDate")
     School getDeleteAllSchoolsCreatedAfterDate(@Param("createdDate") Date createdDate);
-    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.Name = :schoolName")
+    @Query(value = "UPDATE School s SET s.isActive = false WHERE s.Name = :schoolName")
     School getDeleteSchoolsBySchoolName(@Param("schoolName") String schoolName);
 
 }

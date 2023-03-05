@@ -1,7 +1,6 @@
 package com.example.demo.Services;
 
 import com.example.demo.Models.School;
-import com.example.demo.Models.Student;
 import com.example.demo.Repositories.SchoolInterfase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +21,6 @@ public class SchoolServices {
        return schoolInterfase.getAllSchools();
     }
 
-    public School getSchoollById(Integer id){
-
-        return schoolInterfase.getSchoolById(id);
-    }
 
     public School getBySchoolName(String schoolName)
     {
@@ -50,10 +45,12 @@ public class SchoolServices {
         return schoolInterfase.getIdToDeleteSchoolById(id);
     }
 
-    public School getDeletedAllStudent(){
+    public School getDeletedAllSchool(){
 
-        return schoolInterfase.getDeletedAllStudent();
+        return schoolInterfase.getDeletedAllSchool();
     }
+
+
 
 
     public void setCreatDateByUserInput(String date, Integer id) throws ParseException {
@@ -65,6 +62,7 @@ public class SchoolServices {
         schoolInterfase.save(school);
 
     }
+
 
     public void getDeleteAllSchoolsCreatedAfterDate(String date) throws ParseException {
 
@@ -86,6 +84,16 @@ public class SchoolServices {
 
     }
 
+    public void getsetDeleteSchoolsByUpdatedDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        School school = schoolInterfase.getsetDeleteSchoolsByUpdatedDate(javaDate);
+        school.setActive(false);
+        schoolInterfase.save(school);
+
+    }
+
     public void getDeleteSchoolsBySchoolName(String schoolName) throws ParseException {
 
         School school = schoolInterfase.getDeleteSchoolsBySchoolName(schoolName);
@@ -100,7 +108,7 @@ public class SchoolServices {
         return schoolInterfase.getLatestUpdated();
     }
 
-    public <list>School getSchoolCreatedAfterDate(String date) throws ParseException {
+    public School getSchoolCreatedAfterDate(String date) throws ParseException {
     DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     Date datecreated = format.parse(date);
     return schoolInterfase.getSchoolCreatedAfterDate(datecreated);
