@@ -8,6 +8,10 @@ import com.example.demo.Repositories.MarkInterfase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,6 +46,88 @@ public class MarkServices {
 
     public Mark getLatestMark(){
         return markInterfase.getLatestMark();
+    }
+
+    public Mark getLatestUpdated() {
+
+
+        return markInterfase.getLatestUpdated();
+    }
+
+    public void getDeleteAllmarkCreatedAfterDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Mark course = markInterfase.getDeleteAllMarkCreatedAfterDate(javaDate);
+        course.setActive(false);
+        markInterfase.save(course);
+
+    }
+
+    public Mark getmarkCreatedAfterDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return markInterfase.getMarkCreatedAfterDate(datecreated);
+    }
+
+    public Mark getmarkByCreatedDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return markInterfase.getMarkByCreatedDate(datecreated);
+    }
+
+    public Mark getmarkByUpdatedDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return markInterfase.getMarkByUpdatedDate(datecreated);
+    }
+
+    public Mark getDeletedAllmark(){
+
+        return markInterfase.getDeletedAllMark();
+    }
+
+    public void getDeletemarksByCreatedDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Mark mark = markInterfase.getDeleteMarkByCreatedDate(javaDate);
+        mark.setActive(false);
+        markInterfase.save(mark);
+
+    }
+
+    public void getsetDeletemarksByUpdatedDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Mark mark = markInterfase.getsetDeleteMarksByUpdatedDate(javaDate);
+        mark.setActive(false);
+        markInterfase.save(mark);
+
+    }
+
+    public void getDeleteCoursesByCourseid(Integer Courseid) throws ParseException {
+
+        Mark mark = markInterfase.getDeleteMarksByCourseid(Courseid);
+        mark.setActive(false);
+        markInterfase.save(mark);
+
+    }
+
+    public void setCreatDateByUserInput(String date, Integer id) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Mark mark = markInterfase.getMarkById(id);
+        mark.setCreatedDate(javaDate);
+        markInterfase.save(mark);
+
+    }
+
+    public Mark getIdToDeleteMarkById(Integer id){
+
+        return markInterfase.getIdToDeleteMarkById(id);
     }
 
 }

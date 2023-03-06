@@ -21,6 +21,12 @@ public class SchoolServices {
        return schoolInterfase.getAllSchools();
     }
 
+    public School getSchoollById(Integer id)
+    {
+        return schoolInterfase.getSchoolById(id);
+
+    }
+
 
     public School getBySchoolName(String schoolName)
     {

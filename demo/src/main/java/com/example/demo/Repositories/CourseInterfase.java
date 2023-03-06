@@ -8,10 +8,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface CourseInterfase extends CrudRepository<Student, Integer> {
+public interface CourseInterfase extends CrudRepository<Course, Integer> {
     @Query("SELECT c FROM Course c")
     List<Course> getAllCourse();
 
@@ -33,8 +34,34 @@ public interface CourseInterfase extends CrudRepository<Student, Integer> {
     @Query(value = "SELECT s from Course s where s.id=(SELECT max(s.id) from Course s)")
     Course getLatestCourse();
 
-    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.id =:id")
+    @Query(value = "UPDATE Course s SET s.isActive = false WHERE s.id =:id")
     Course getIdToDeleteCourseById(@Param("id") Integer id);
+
+    @Query(value ="select s from Course s where s.updatedDate=(select max(updatedDate) from Course)")
+    Course getLatestUpdated();
+
+    @Query(value ="select s from Course s where s.createdDate >= :date")
+    <list>Course getCourseCreatedAfterDate(@Param("date") Date date);
+
+    @Query(value="select s from Course s where s.createdDate = :createdDate")
+    Course getCourseByCreatedDate(@Param("createdDate") Date date);
+
+    @Query(value="select s from Course s where s.updatedDate = :updatedDate")
+    Course getCourseByUpdatedDate(@Param("updatedDate") Date date);
+    @Query(value = "UPDATE Course s SET s.isActive = false")
+    Course getDeletedAllCourse();
+
+    @Query(value = "UPDATE Course s SET s.isActive = false where s.createdDate > :createdDate")
+    Course getDeleteAllCourseCreatedAfterDate(@Param("createdDate") Date createdDate);
+
+
+    @Query(value = "UPDATE Course s SET s.isActive = false where s.createdDate = :createdDate")
+    <list> Course getDeleteCoursesByCreatedDate(@Param("createdDate") Date createdDate);
+
+    @Query(value = "UPDATE Course s SET s.isActive = false where s.updatedDate > :updatedDate")
+    <list> Course getsetDeleteCoursesByUpdatedDate(@Param("updatedDate") Date createdDate);
+    @Query(value = "UPDATE Course s SET s.isActive = false WHERE s.CourseName = :CourseName")
+    Course getDeleteCoursesByCourseName(@Param("CourseName") String schoolName);
 
 
 }

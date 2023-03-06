@@ -8,10 +8,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface MarkInterfase extends CrudRepository<Student, Integer> {
+public interface MarkInterfase extends CrudRepository<Mark, Integer> {
 
     @Query("SELECT m FROM Mark m")
     List<Mark> getAllMark();
@@ -28,5 +29,33 @@ public interface MarkInterfase extends CrudRepository<Student, Integer> {
 
     @Query(value = "SELECT s from Mark s where s.id=(SELECT max(s.id) from Mark s)")
     Mark getLatestMark();
+
+    @Query(value ="select s from Course s where s.updatedDate=(select max(updatedDate) from Course)")
+    Mark getLatestUpdated();
+    @Query(value ="select s from Mark s where s.createdDate >= :date")
+    <list>Mark getMarkCreatedAfterDate(@Param("date") Date date);
+
+    @Query(value="select s from Mark s where s.createdDate = :createdDate")
+    Mark getMarkByCreatedDate(@Param("createdDate") Date date);
+
+    @Query(value="select s from Mark s where s.updatedDate = :updatedDate")
+    Mark getMarkByUpdatedDate(@Param("updatedDate") Date date);
+    @Query(value = "UPDATE Course s SET s.isActive = false")
+    Mark getDeletedAllMark();
+
+    @Query(value = "UPDATE Mark s SET s.isActive = false where s.createdDate > :createdDate")
+    Mark getDeleteAllMarkCreatedAfterDate(@Param("createdDate") Date createdDate);
+
+
+    @Query(value = "UPDATE Mark s SET s.isActive = false where s.createdDate = :createdDate")
+    <list> Mark getDeleteMarkByCreatedDate(@Param("createdDate") Date createdDate);
+
+    @Query(value = "UPDATE Mark s SET s.isActive = false where s.updatedDate > :updatedDate")
+    <list> Mark getsetDeleteMarksByUpdatedDate(@Param("updatedDate") Date createdDate);
+    @Query(value = "UPDATE Mark s SET s.isActive = false WHERE s.Course.id= :courseid")
+    Mark getDeleteMarksByCourseid(@Param("courseid") Integer courseid);
+
+    @Query(value = "UPDATE Mark s SET s.isActive = false WHERE s.id =:id")
+    Mark getIdToDeleteMarkById(@Param("id") Integer id);
 
 }

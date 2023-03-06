@@ -9,6 +9,10 @@ import com.example.demo.Repositories.StudentInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -53,4 +57,80 @@ public class CourseServices {
         return courseInterfase.getIdToDeleteCourseById(id);
     }
 
+    public Course getLatestUpdated() {
+
+
+        return courseInterfase.getLatestUpdated();
+    }
+
+    public void getDeleteAllCourseCreatedAfterDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Course course = courseInterfase.getDeleteAllCourseCreatedAfterDate(javaDate);
+        course.setActive(false);
+        courseInterfase.save(course);
+
+    }
+
+    public Course getCourseCreatedAfterDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return courseInterfase.getCourseCreatedAfterDate(datecreated);
+    }
+
+    public Course getCourseByCreatedDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return courseInterfase.getCourseByCreatedDate(datecreated);
+    }
+
+    public Course getCourseByUpdatedDate(String date) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datecreated = format.parse(date);
+        return courseInterfase.getCourseByUpdatedDate(datecreated);
+    }
+
+    public Course getDeletedAllCourse(){
+
+        return courseInterfase.getDeletedAllCourse();
+    }
+
+    public void getDeleteCoursesByCreatedDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Course course = courseInterfase.getDeleteCoursesByCreatedDate(javaDate);
+        course.setActive(false);
+        courseInterfase.save(course);
+
+    }
+
+    public void getsetDeleteCoursesByUpdatedDate(String date) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Course course = courseInterfase.getsetDeleteCoursesByUpdatedDate(javaDate);
+        course.setActive(false);
+        courseInterfase.save(course);
+
+    }
+
+    public void getDeleteCoursesByCourseName(String CourseName) throws ParseException {
+
+        Course course = courseInterfase.getDeleteCoursesByCourseName(CourseName);
+        course.setActive(false);
+        courseInterfase.save(course);
+
+    }
+
+    public void setCreatDateByUserInput(String date, Integer id) throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+        Date javaDate = formatter.parse(date);
+        Course course = courseInterfase.getCourseById(id);
+        course.setCreatedDate(javaDate);
+        courseInterfase.save(course);
+
+    }
 }
