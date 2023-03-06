@@ -21,6 +21,13 @@ public class CourseController {
     @Autowired
     CourseServices courseServices ;
 
+    @RequestMapping (value ="addCourse", method = RequestMethod.POST)
+    public String addCourse(){
+        courseServices.addCourse();
+        return "Course Insert Successfully";
+
+    }
+
     @RequestMapping(value="course/getAll", method = RequestMethod.GET)
     public List<Course> getAllCourse(){
         List<Course> course = courseServices.getAllCourse();

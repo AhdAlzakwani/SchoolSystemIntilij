@@ -16,6 +16,13 @@ import java.util.List;
 public class StudentController {
     @Autowired
     StudentServices studentServices;
+
+    @RequestMapping (value ="addStudent", method = RequestMethod.POST)
+    public String addStudent(){
+        studentServices.addStudent();
+        return "Student Add Successfull";
+
+    }
     @RequestMapping(value="student/getById", method = RequestMethod.GET)
     public Student getStudentById(@RequestParam Integer id){
         Student student = studentServices.getStudentById(id);

@@ -62,6 +62,6 @@ public interface StudentInterface extends CrudRepository<Student, Integer> {
     @Query(value = "UPDATE Student s SET s.isActive = false where s.updatedDate > :updatedDate")
     <list> Student getsetDeleteStudentsByUpdatedDate(@Param("updatedDate") Date createdDate);
 
-    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.Name = :studentName")
+    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.studentName = :studentName")
     Student getDeleteStudentsByStudentName(@Param("studentName") String schoolName);
 }

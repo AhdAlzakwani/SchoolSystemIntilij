@@ -23,6 +23,13 @@ public class MarkServices {
     @Autowired
     CourseInterfase courseInterfase;
 
+
+    public void addMark(){
+        Mark markToInsert = new Mark();
+        markToInsert.setGrade("B");
+        markToInsert.setObtainMark(89);
+        markInterfase.save(markToInsert);
+    }
     public List<Mark> getAllMark(){
         return markInterfase.getAllMark();
     }

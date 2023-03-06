@@ -16,6 +16,13 @@ public class SchoolController {
     @Autowired
     SchoolServices schoolServices;
 
+    @RequestMapping (value ="addStudent", method = RequestMethod.POST)
+    public String addStudent(){
+        schoolServices.addSchool();
+        return "School Add Successfull";
+
+    }
+
     @RequestMapping(value="school/getAll", method = RequestMethod.GET)
     public List<School> getAllSchool(){
         List<School> schools = schoolServices.getAllSchools();

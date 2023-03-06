@@ -23,12 +23,12 @@ public class StudentServices {
     @Autowired
     SchoolInterfase schoolInterfase;
 
-//    public void addStudent(){
-//        Student studentToInseert = new Student();
-//        studentToInseert.setStudentName("Ahd Yahya");
-//        studentToInseert.setStudentAge(29);
-//        studentInterface.save(studentToInseert);
-//    }
+    public void addStudent(){
+        Student studentToInseert = new Student();
+        studentToInseert.setStudentName("Ahd Yahya");
+        studentToInseert.setStudentAge(29);
+        studentInterface.save(studentToInseert);
+    }
 //    public void deleteStudent(@RequestParam Integer id){
 //        Student studentToDelete = studentInterface.findById(id).get();
 //        studentInterface.delete(studentToDelete);

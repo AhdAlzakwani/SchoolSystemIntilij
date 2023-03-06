@@ -52,7 +52,7 @@ public interface MarkInterfase extends CrudRepository<Mark, Integer> {
 
     @Query(value = "UPDATE Mark s SET s.isActive = false where s.updatedDate > :updatedDate")
     <list> Mark getsetDeleteMarksByUpdatedDate(@Param("updatedDate") Date createdDate);
-    @Query(value = "UPDATE Mark s SET s.isActive = false WHERE s.Course.id= :courseid")
+    @Query(value = "UPDATE Mark s SET s.isActive = false WHERE s.course.id= :courseid")
     Mark getDeleteMarksByCourseid(@Param("courseid") Integer courseid);
 
     @Query(value = "UPDATE Mark s SET s.isActive = false WHERE s.id =:id")

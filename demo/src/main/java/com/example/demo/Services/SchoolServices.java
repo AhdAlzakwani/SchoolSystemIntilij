@@ -1,9 +1,12 @@
 package com.example.demo.Services;
 
 import com.example.demo.Models.School;
+import com.example.demo.Models.Student;
 import com.example.demo.Repositories.SchoolInterfase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,8 +17,16 @@ import java.util.List;
 @Service
 public class SchoolServices {
 
+
+
     @Autowired
     SchoolInterfase schoolInterfase;
+
+    public void addSchool(){
+        School schoolToInseert = new School();
+        schoolToInseert.setName("TechMahindra");
+        schoolInterfase.save(schoolToInseert);
+    }
 
     public List<School> getAllSchools(){
        return schoolInterfase.getAllSchools();

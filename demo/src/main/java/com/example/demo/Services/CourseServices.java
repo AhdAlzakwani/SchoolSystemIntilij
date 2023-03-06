@@ -23,6 +23,15 @@ public class CourseServices {
     @Autowired
     StudentInterface studentInterface ;
 
+    public void addCourse(){
+
+        Course courseToInsert = new Course();
+        Student insetStudent = new Student();
+        courseToInsert.setCourseName("Java");
+        courseInterfase.save(courseToInsert);
+
+    }
+
 
 
     public List<Course> getAllCourse(){

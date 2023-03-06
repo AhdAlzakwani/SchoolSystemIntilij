@@ -5,6 +5,7 @@ import com.example.demo.Models.Mark;
 import com.example.demo.RequestObject.CourseRequestForCreateDateUpdate;
 import com.example.demo.Services.MarkServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -17,7 +18,12 @@ public class MarkController {
     @Autowired
     MarkServices markServices  ;
 
+@RequestMapping(value="addMark",method = RequestMethod.POST)
+public String addMark(){
+    markServices.addMark();
+    return "Mark Add Successfully";
 
+}
 
     @RequestMapping(value="mark/getAll", method = RequestMethod.GET)
     public List<Mark> getAllMark(){
