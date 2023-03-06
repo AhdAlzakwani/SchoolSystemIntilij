@@ -44,6 +44,11 @@ public class MarkServices {
         return markInterfase.getAllActiveMarks();
     }
 
+    public List<Mark> getAllNotActiveCourses(){
+
+        return markInterfase.getAllNotActiveMark();
+    }
+
     public List<Mark> getMarksByCourseName(String studentName){
         Course course = courseInterfase.getByCourseName(studentName);
         Integer courseId = course.getId();
@@ -61,6 +66,24 @@ public class MarkServices {
         return markInterfase.getLatestUpdated();
     }
 
+    public List<Mark> getAllByGrade(String grade){
+        List<Mark> mark = markInterfase.getAllByGrade(grade);
+        return mark;
+    }
+
+    public List<Mark> getByObtainedMarksMoreThan(Integer obtainMark){
+        List<Mark> mark = markInterfase.getByObtainedMarksMoreThan(obtainMark);
+        return mark;
+    }
+
+    public List<Mark> getByObtainedMarksLessThan(Integer obtainMark){
+        List<Mark> mark = markInterfase.getByObtainedMarksLessThan(obtainMark);
+        return mark;
+    }
+    public List<Mark> getMarksByCourseId(Integer courseid){
+        List<Mark> markList = markInterfase.getMarksByCourseId(courseid);
+        return markList;
+    }
     public void getDeleteAllmarkCreatedAfterDate(String date) throws ParseException {
 
         DateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
@@ -77,11 +100,7 @@ public class MarkServices {
         return markInterfase.getMarkCreatedAfterDate(datecreated);
     }
 
-    public Mark getmarkByCreatedDate(String date) throws ParseException {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date datecreated = format.parse(date);
-        return markInterfase.getMarkByCreatedDate(datecreated);
-    }
+
 
     public Mark getmarkByUpdatedDate(String date) throws ParseException {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -128,6 +147,8 @@ public class MarkServices {
         Date javaDate = formatter.parse(date);
         Mark mark = markInterfase.getMarkById(id);
         mark.setCreatedDate(javaDate);
+        mark.setGrade("A");
+        mark.setObtainMark(95);
         markInterfase.save(mark);
 
     }

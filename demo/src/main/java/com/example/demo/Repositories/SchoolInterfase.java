@@ -61,6 +61,7 @@ public interface SchoolInterfase extends JpaRepository<School, Integer> {
     @Query(value = "UPDATE School s SET s.isActive = false WHERE s.Name = :schoolName")
     School getDeleteSchoolsBySchoolName(@Param("schoolName") String schoolName);
 
+
 }
 
 

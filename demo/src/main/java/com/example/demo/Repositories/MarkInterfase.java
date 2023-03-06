@@ -23,6 +23,19 @@ public interface MarkInterfase extends CrudRepository<Mark, Integer> {
     @Query(value = "SELECT s from Mark s where s.isActive = true")
     List<Mark> getAllActiveMarks();
 
+    @Query(value = "SELECT s from Mark s where s.isActive = false")
+    List<Mark> getAllNotActiveMark();
+
+
+    @Query(value = "SELECT m FROM Mark m WHERE m.grade =:grade")
+    List<Mark> getAllByGrade(@Param("grade") String grade);
+
+    @Query(value = "SELECT m FROM Mark m WHERE m.obtainMark >:obtainMark")
+    List<Mark> getByObtainedMarksMoreThan(@Param("obtainMark") Integer obtainMark);
+
+    @Query(value = "SELECT m FROM Mark m WHERE m.obtainMark <:obtainMark")
+    List<Mark> getByObtainedMarksLessThan(@Param("obtainMark") Integer obtainMark);
+
     @Query(value = "SELECT st from Mark st " +
             "WHERE st.course.id = :id ")
     List<Mark> getMarksByCourseId(@Param("id") Integer id);
@@ -35,8 +48,7 @@ public interface MarkInterfase extends CrudRepository<Mark, Integer> {
     @Query(value ="select s from Mark s where s.createdDate >= :date")
     <list>Mark getMarkCreatedAfterDate(@Param("date") Date date);
 
-    @Query(value="select s from Mark s where s.createdDate = :createdDate")
-    Mark getMarkByCreatedDate(@Param("createdDate") Date date);
+
 
     @Query(value="select s from Mark s where s.updatedDate = :updatedDate")
     Mark getMarkByUpdatedDate(@Param("updatedDate") Date date);

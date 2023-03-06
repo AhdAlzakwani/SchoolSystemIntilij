@@ -21,11 +21,10 @@ public class CourseController {
     @Autowired
     CourseServices courseServices ;
 
-    @RequestMapping (value ="addCourse", method = RequestMethod.POST)
-    public String addCourse(){
-        courseServices.addCourse();
-        return "Course Insert Successfully";
-
+    @RequestMapping(value="course/getById", method = RequestMethod.GET)
+    public Course getCourseById(@RequestParam Integer id){
+        Course course = courseServices.getCourseById(id);
+        return course;
     }
 
     @RequestMapping(value="course/getAll", method = RequestMethod.GET)
@@ -34,15 +33,17 @@ public class CourseController {
         return course;
     }
 
-    @RequestMapping(value="course/getById", method = RequestMethod.GET)
-    public Course getCourseById(@RequestParam Integer id){
-        Course course = courseServices.getCourseById(id);
-        return course;
-    }
+
 
     @RequestMapping(value = "getAllCoursesByIsActive")
     public List<Course> getAllActiveCourses() {
         List<Course> activeCoursesList = courseServices.getAllActiveCourses();
+        return activeCoursesList;
+    }
+
+    @RequestMapping(value = "getAllNotStudentByIsActive")
+    public List<Course> getAllNotActiveCourses(){
+        List<Course>  activeCoursesList = courseServices.getAllNotActiveCourses();
         return activeCoursesList;
     }
 
@@ -63,7 +64,16 @@ public class CourseController {
     public <list>Course getCourseCreatedAfterDate(@RequestParam String date) throws ParseException {
         Course course = courseServices.getCourseCreatedAfterDate(date);
         return course;
+
     }
+
+    @RequestMapping(value="getByCourseName", method = RequestMethod.GET)
+    public Course getCourseByName(@RequestParam String courseName) {
+        Course course = courseServices.getByCourseName(courseName);
+        return course;
+    }
+
+
 
     @RequestMapping(value = "getCourseByCreatedDate", method = RequestMethod.GET)
     public Course getCourseByCreatedDate(@RequestParam String date) throws ParseException {
@@ -74,10 +84,29 @@ public class CourseController {
     public Course getCourseByUpdatedDate(@RequestParam String date, Integer id) throws ParseException {
         return courseServices.getCourseByUpdatedDate(date);
     }
-    @RequestMapping(value="getIdToDeleteSchoolById", method = RequestMethod.POST)
-    public Course setIdToDeleteSchoolById(@RequestParam Integer id){
-        Course course = courseServices.getIdToDeleteCourseById(id);
-        return course;
+
+    @RequestMapping(value = "getCourseByStudentId", method = RequestMethod.GET)
+    public List<Course> getCourseByStudentId(@RequestParam Integer studentid) {
+
+        return courseServices.getCourseByStudentId(studentid);
+
+    }
+    @RequestMapping(value = "getAllActiveCoursesForAStudent")
+    public List<Course> getAllActiveCoursesForAStudent(Integer studentId) {
+        List<Course> activeCoursesList = courseServices.getAllActiveCoursesForAStudent(studentId);
+        return activeCoursesList;
+    }
+
+
+
+
+
+
+
+    @RequestMapping(value="getIdToDeleteCourseById", method = RequestMethod.GET)
+    public Course getIdToDeleteCourseById(@RequestParam Integer id){
+        Course Course = courseServices.getIdToDeleteCourseById(id);
+        return Course;
     }
 
 
@@ -93,6 +122,15 @@ public class CourseController {
 
     }
 
+    @RequestMapping(value = "deleteByCourseName", method = RequestMethod.POST)
+    public void setdeleteByCourseName(@RequestParam String courseName) throws ParseException {
+        courseServices.getDeleteCoursesByCourseName(courseName);
+
+    }
+
+
+
+
     @RequestMapping(value = "deleteCoursesByCreatedDate", method = RequestMethod.POST)
     public void setDeleteCoursesByCreatedDate(@RequestParam CourseRequestForCreateDateUpdate date) throws ParseException {
         courseServices.getDeleteCoursesByCreatedDate(date.getDate());
@@ -105,22 +143,16 @@ public class CourseController {
 
     }
 
-    @RequestMapping(value = "deleteCoursesByStudentName", method = RequestMethod.POST)
-    public void setDeleteCoursesByCourseName(@RequestParam String courseName) throws ParseException {
-        courseServices.getDeleteCoursesByCourseName(courseName);
+
+    @RequestMapping (value ="addCourse", method = RequestMethod.POST)
+    public String addCourse(){
+        courseServices.addCourse();
+        return "Course Insert Successfully";
 
     }
-
 
     @RequestMapping(value="updateCreatedDateByUserInput",method = RequestMethod.POST)
     public void setCreatDateByUserInput(@RequestBody CourseRequestForCreateDateUpdate data) throws ParseException {
         courseServices.setCreatDateByUserInput(data.getDate(), data.getId());
-    }
-
-
-    @RequestMapping(value="getIdToDeleteCourseById", method = RequestMethod.GET)
-    public Course getIdToDeleteCourseById(@RequestParam Integer id){
-        Course Course = courseServices.getIdToDeleteCourseById(id);
-        return Course;
     }
 }

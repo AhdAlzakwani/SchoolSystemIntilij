@@ -17,12 +17,7 @@ public class StudentController {
     @Autowired
     StudentServices studentServices;
 
-    @RequestMapping (value ="addStudent", method = RequestMethod.POST)
-    public String addStudent(){
-        studentServices.addStudent();
-        return "Student Add Successfull";
 
-    }
     @RequestMapping(value="student/getById", method = RequestMethod.GET)
     public Student getStudentById(@RequestParam Integer id){
         Student student = studentServices.getStudentById(id);
@@ -68,6 +63,28 @@ public class StudentController {
         return student;
     }
 
+    @RequestMapping(value="getByStudentName", method = RequestMethod.GET)
+    public Student getStudentByName(@RequestParam String studentName) {
+        Student student = studentServices.getByStudentName(studentName);
+        return student;
+    }
+
+    @RequestMapping(value="getByStudentAge", method = RequestMethod.GET)
+    public List<Student> getStudentByStudentAge(@RequestParam Integer studentAge) {
+        List<Student> student = studentServices.getStudentsByStudentAge(studentAge);
+        return student;
+    }
+
+    @RequestMapping(value = "student/getStudentsBySchoolid", method = RequestMethod.GET)
+    public List<Student> getStudentsBySchoolId(@RequestParam Integer schoolid) {
+
+        return studentServices.getStudentsBySchoolId(schoolid);
+
+    }
+
+
+
+
     @RequestMapping(value = "getStudentByCreatedDate", method = RequestMethod.GET)
     public Student getSchoolByCreatedDate(@RequestParam String date) throws ParseException {
         return studentServices.getStudentByCreatedDate(date);
@@ -77,10 +94,6 @@ public class StudentController {
     public Student getStudentByUpdatedDate(@RequestParam String date, Integer id) throws ParseException {
         return studentServices.getStudentByUpdatedDate(date);
     }
-
-
-
-
 
 
     @RequestMapping(value="getIdToDeleteStudentById", method = RequestMethod.GET)
@@ -101,6 +114,29 @@ public class StudentController {
 
     }
 
+    @RequestMapping(value = "deleteStudentsByStudentName", method = RequestMethod.POST)
+    public void setDeleteStudentsByStudentName(@RequestParam String studentName) throws ParseException {
+        studentServices.getDeleteStudentsByStudentName(studentName);
+
+    }
+
+    @RequestMapping(value = "deleteStudentsByStudentAge", method = RequestMethod.POST)
+    public void setDeleteStudentsByStudentAge(@RequestParam Integer studentAge) throws ParseException {
+        studentServices.getDeleteStudentsByStudentAge(studentAge);
+
+    }
+
+    @RequestMapping(value = "deleteStudentsBySchoolId", method = RequestMethod.POST)
+    public void setDeleteStudentsBySchoolId(@RequestParam Integer schoolId) throws ParseException {
+        studentServices.getDeleteStudentsByStudentId(schoolId);
+
+    }
+
+
+
+
+
+
     @RequestMapping(value = "deleteStudentsByCreatedDate", method = RequestMethod.POST)
     public void setDeleteStudentsByCreatedDate(@RequestParam StudentRequestForCreateDateUpdate date) throws ParseException {
         studentServices.getDeleteStudentsByCreatedDate(date.getDate());
@@ -113,12 +149,14 @@ public class StudentController {
 
     }
 
-    @RequestMapping(value = "deleteStudentsBySchoolName", method = RequestMethod.POST)
-    public void setDeleteStudentsBySchoolName(@RequestParam String studentName) throws ParseException {
-        studentServices.getDeleteStudentsByStudentName(studentName);
+
+
+    @RequestMapping (value ="addStudent", method = RequestMethod.POST)
+    public String addStudent(){
+        studentServices.addStudent();
+        return "Student Add Successfull";
 
     }
-
 
     @RequestMapping(value="updateCreatedDateByUserInput",method = RequestMethod.POST)
     public void setCreatDateByUserInput(@RequestBody StudentRequestForCreateDateUpdate data) throws ParseException {

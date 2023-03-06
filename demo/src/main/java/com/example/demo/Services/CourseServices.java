@@ -48,7 +48,18 @@ public class CourseServices {
         return courseInterfase.getAllActiveCourses();
     }
 
+    public List<Course> getAllActiveCoursesForAStudent(Integer studentId){
 
+        return courseInterfase.getAllActiveCoursesForAStudent(studentId);
+    }
+    public List<Course> getAllNotActiveCourses(){
+
+        return courseInterfase.getAllNotActiveCourse();
+    }
+    public Course getByCourseName(String courseName)
+    {
+        return courseInterfase.getByCourseName(courseName);
+    }
     public List<Course> getCoursesByStudentName(String studentName){
         Student student = studentInterface.getByStudentName(studentName);
         Integer studentId = student.getId();
@@ -61,6 +72,10 @@ public class CourseServices {
         return courseInterfase.getLatestCourse();
     }
 
+    public List<Course> getCourseByStudentId(Integer studentid){
+        List<Course> courseList = courseInterfase.getCourseByStudentId(studentid);
+        return courseList;
+    }
     public Course getIdToDeleteCourseById(Integer id){
 
         return courseInterfase.getIdToDeleteCourseById(id);
@@ -139,6 +154,7 @@ public class CourseServices {
         Date javaDate = formatter.parse(date);
         Course course = courseInterfase.getCourseById(id);
         course.setCreatedDate(javaDate);
+        course.setCourseName("C++");
         courseInterfase.save(course);
 
     }

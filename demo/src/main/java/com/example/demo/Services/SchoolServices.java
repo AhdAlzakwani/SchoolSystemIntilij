@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import com.example.demo.Models.School;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositories.SchoolInterfase;
+import com.example.demo.Repositories.StudentInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class SchoolServices {
 
-
+    @Autowired
+    StudentInterface studentInterface;
 
     @Autowired
     SchoolInterfase schoolInterfase;
@@ -76,6 +80,7 @@ public class SchoolServices {
         Date javaDate = formatter.parse(date);
         School school = schoolInterfase.getSchoolById(id);
         school.setCreatedDate(javaDate);
+        school.setName("AlMajd School");
         schoolInterfase.save(school);
 
     }
@@ -87,6 +92,7 @@ public class SchoolServices {
         Date javaDate = formatter.parse(date);
         School school = schoolInterfase.getDeleteAllSchoolsCreatedAfterDate(javaDate);
         school.setActive(false);
+
         schoolInterfase.save(school);
 
     }
@@ -141,5 +147,24 @@ public class SchoolServices {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date datecreated = format.parse(date);
         return schoolInterfase.getSchoolByUpdatedDate(datecreated);
+    }
+
+    public List<School> getSchoolByNumberOfStudents(Integer numberOfStudents){
+        List<Integer> schoolIds = studentInterface.getUniqueSchoolIdsFromStudents();
+        HashMap<Integer, Integer> idCountMap = new HashMap<>();
+        List<School> listOfSchoolByNumberOfStudent = new ArrayList<>();
+
+        for (Integer id: schoolIds) {
+            idCountMap.put(id, studentInterface.getCountOfStudentBySchoolId(id));
+        }
+
+        for (Integer id: idCountMap.keySet()) {
+            if(idCountMap.get(id) == numberOfStudents){
+                listOfSchoolByNumberOfStudent.add(schoolInterfase.getSchoolById(id));
+            }
+        }
+
+        return listOfSchoolByNumberOfStudent;
+
     }
 }

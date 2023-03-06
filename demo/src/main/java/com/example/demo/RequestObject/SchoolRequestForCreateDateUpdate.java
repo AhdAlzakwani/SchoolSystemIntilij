@@ -11,4 +11,6 @@ public class SchoolRequestForCreateDateUpdate {
     String date;
     Integer id;
 
+    String Name;
+
 }

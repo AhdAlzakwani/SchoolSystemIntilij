@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,12 +44,25 @@ public List<Student> getAllStudent(){
         return studentInterface.getStudentById(id);
     }
 
-
+    public Student getByStudentName(String schoolName)
+    {
+        return studentInterface.getByStudentName(schoolName);
+    }
     public List<Student> getStudentsBySchoolName(String schoolName){
         School school = schoolInterfase.getBySchoolName(schoolName);
         Integer schoolId = school.getId();
         List<Student> studentList = studentInterface.getStudentsBySchoolId(schoolId);
         return studentList;
+    }
+
+    public List<Student> getStudentsBySchoolId(Integer schoolid){
+        List<Student> studentList = studentInterface.getStudentsBySchoolId(schoolid);
+        return studentList;
+    }
+
+    public List<Student> getStudentsByStudentAge(Integer studentAge)
+    {
+        return studentInterface.getByStudentAge(studentAge);
     }
 
     public List<Student> getAllActiveStudents(){
@@ -110,6 +124,8 @@ public List<Student> getAllStudent(){
         Date javaDate = formatter.parse(date);
         Student student = studentInterface.getStudentById(id);
         student.setCreatedDate(javaDate);
+        student.setStudentAge(25);
+        student.setStudentName("Ahdoonh");
         studentInterface.save(student);
 
     }
@@ -152,6 +168,22 @@ public List<Student> getAllStudent(){
     public void getDeleteStudentsByStudentName(String schoolName) throws ParseException {
 
         Student student = studentInterface.getDeleteStudentsByStudentName(schoolName);
+        student.setActive(false);
+        studentInterface.save(student);
+
+    }
+
+    public void getDeleteStudentsByStudentAge(Integer schoolAge) throws ParseException {
+
+        Student student = studentInterface.getDeleteStudentsByStudentAge(schoolAge);
+        student.setActive(false);
+        studentInterface.save(student);
+
+    }
+
+    public void getDeleteStudentsByStudentId(Integer schoolId) throws ParseException {
+
+        Student student = studentInterface.getDeleteStudentsByStudentId(schoolId);
         student.setActive(false);
         studentInterface.save(student);
 

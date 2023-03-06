@@ -33,6 +33,9 @@ public interface StudentInterface extends CrudRepository<Student, Integer> {
             "WHERE s.studentName = :studentName")
     Student getByStudentName(@Param("studentName") String studentName);
 
+    @Query(value = "SELECT s from Student s " +
+            "WHERE s.studentAge = :studentAge")
+    List<Student> getByStudentAge(@Param("studentAge") Integer studentAge);
     @Query(value = "SELECT s from Student s where s.id=(SELECT max(s.id) from Student s)")
     Student getLatestStudent();
 
@@ -64,4 +67,16 @@ public interface StudentInterface extends CrudRepository<Student, Integer> {
 
     @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.studentName = :studentName")
     Student getDeleteStudentsByStudentName(@Param("studentName") String schoolName);
+
+    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.studentAge = :schoolAge")
+    Student getDeleteStudentsByStudentAge(@Param("schoolAge") Integer schoolAge);
+
+    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.school.id = :schoolId")
+    Student getDeleteStudentsByStudentId(@Param("schoolId") Integer schoolId);
+
+    @Query(value = "Select distinct school_id from student", nativeQuery = true)
+    List<Integer> getUniqueSchoolIdsFromStudents();
+
+    @Query(value = "Select count(id) from student where id =?1", nativeQuery = true)
+    Integer getCountOfStudentBySchoolId(Integer schoolId);
 }
