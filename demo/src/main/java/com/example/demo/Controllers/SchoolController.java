@@ -129,8 +129,8 @@ public List<School> getSchoolByNumberOfStudents(@RequestParam Integer numberOfSt
 
 
 
-    @RequestMapping (value ="addStudent", method = RequestMethod.POST)
-    public String addStudent(){
+    @RequestMapping (value ="addSchool", method = RequestMethod.POST)
+    public String addSchool(){
         schoolServices.addSchool();
         return "School Add Successfull";
 
