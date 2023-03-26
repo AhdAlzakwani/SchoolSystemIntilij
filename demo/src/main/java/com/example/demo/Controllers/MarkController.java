@@ -5,6 +5,7 @@ import com.example.demo.Models.Mark;
 import com.example.demo.Models.Student;
 import com.example.demo.RequestObject.CourseRequestForCreateDateUpdate;
 import com.example.demo.Services.MarkServices;
+import com.example.demo.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -18,18 +19,25 @@ public class MarkController {
 
     @Autowired
     MarkServices markServices  ;
-
+@Autowired
+    SlackClient slackClient;
 
 
     @RequestMapping(value="mark/getById", method = RequestMethod.GET)
     public Mark getMArkById(@RequestParam Integer id){
         Mark mArk = markServices.getMarkById(id);
+        slackClient.sendMessage("Mark id is :\t"+mArk.getId()+"\t Mark Grade : \t"+mArk.getGrade()+"\t Mark ObtainMark \t"+mArk.getObtainMark()+"\t Mark Course Name :\t"+mArk.getCourse().getCourseName());
         return mArk;
     }
 
     @RequestMapping(value="mark/getAll", method = RequestMethod.GET)
     public List<Mark> getAllMark(){
         List<Mark> mark = markServices.getAllMark();
+        for (Mark mArk:mark) {
+            slackClient.sendMessage("Mark id is :\t"+mArk.getId()+"\t Mark Grade : \t"+mArk.getGrade()+"\t Mark ObtainMark \t"+mArk.getObtainMark()+"\t Mark Course Name :\t"+mArk.getCourse().getCourseName());
+
+
+        }
         return mark;
     }
 
@@ -37,6 +45,11 @@ public class MarkController {
     @RequestMapping(value = "getAllMarksByIsActive")
     public List<Mark> getAllActiveMarks() {
         List<Mark> activeMarksList = markServices.getAllActiveMarks();
+        for (Mark mArk:activeMarksList) {
+            slackClient.sendMessage("Mark id is :\t"+mArk.getId()+"\t Mark Grade : \t"+mArk.getGrade()+"\t Mark ObtainMark \t"+mArk.getObtainMark()+"\t Mark Course Name :\t"+mArk.getCourse().getCourseName()+"\t Course Activation :"+mArk.getActive());
+
+
+        }
         return activeMarksList;
     }
 
@@ -44,33 +57,49 @@ public class MarkController {
     @RequestMapping(value = "getAllNotMarksByIsActive")
     public List<Mark> getAllNotActiveMarks(){
         List<Mark>  activeMarksList = markServices.getAllNotActiveCourses();
+        for (Mark mArk:activeMarksList) {
+            slackClient.sendMessage("Mark id is :\t"+mArk.getId()+"\t Mark Grade : \t"+mArk.getGrade()+"\t Mark ObtainMark \t"+mArk.getObtainMark()+"\t Mark Course Name :\t"+mArk.getCourse().getCourseName()+"\t Course Activation :"+mArk.getActive());
+
+
+        }
         return activeMarksList;
     }
 
     @RequestMapping(value="getLatest", method = RequestMethod.GET)
     public Mark getLatestCourse() {
-        Mark mark = markServices.getLatestMark();
-        return mark;
+        Mark mArk = markServices.getLatestMark();
+        slackClient.sendMessage("Mark id is :\t"+mArk.getId()+"\t Mark Grade : \t"+mArk.getGrade()+"\t Mark ObtainMark \t"+mArk.getObtainMark()+"\t Mark Course Name :\t"+mArk.getCourse().getCourseName()+"\t Course Created Date :"+mArk.getCreatedDate());
+
+        return mArk;
     }
 
     @RequestMapping(value = "getLatestUpdated", method = RequestMethod.GET)
 
     public Mark getLatestUpdated(){
-        Mark mark = markServices.getLatestUpdated();
-        return mark;
+        Mark mArk = markServices.getLatestUpdated();
+        slackClient.sendMessage("Mark id is :\t"+mArk.getId()+"\t Mark Grade : \t"+mArk.getGrade()+"\t Mark ObtainMark \t"+mArk.getObtainMark()+"\t Mark Course Name :\t"+mArk.getCourse().getCourseName()+"\t Course UpdatedDate :"+mArk.getUpdatedDate());
+
+        return mArk;
 
     }
     @RequestMapping(value = "getMarkCreatedAfterDate", method = RequestMethod.GET)
-    public <list>Mark getMarkCreatedAfterDate(@RequestParam String date) throws ParseException {
-        Mark mark = markServices.getmarkCreatedAfterDate(date);
+    public List<Mark> getMarkCreatedAfterDate(@RequestParam String date) throws ParseException {
+        List<Mark> mark = markServices.getmarkCreatedAfterDate(date);
+        for (Mark mArk:mark) {
+            slackClient.sendMessage("Mark id is :\t"+mArk.getId()+"\t Mark Grade : \t"+mArk.getGrade()+"\t Mark ObtainMark \t"+mArk.getObtainMark()+"\t Mark Course Name :\t"+mArk.getCourse().getCourseName()+"\t Course Created Date :"+mArk.getCreatedDate());
+        }
+
         return mark;
     }
 
 
-    @RequestMapping(value = "getAllByGrade", method = RequestMethod.POST)
+    @RequestMapping(value = "getAllByGrade", method = RequestMethod.GET)
     public List<Mark> getAllByGrade(String grade)
     {
         List<Mark> marklistByGrade = markServices.getAllByGrade(grade);
+        for (Mark mArk:marklistByGrade) {
+            slackClient.sendMessage("Mark id is :\t"+mArk.getId()+"\t Mark Grade : \t"+mArk.getGrade()+"\t Mark ObtainMark \t"+mArk.getObtainMark()+"\t Mark Course Name :\t"+mArk.getCourse().getCourseName()+"\t Course Created Date :"+mArk.getCreatedDate());
+        }
         return marklistByGrade;
     }
 
@@ -112,29 +141,41 @@ public class MarkController {
     }
 
     @RequestMapping(value = "deleteAllMarksCreatedAfterDate", method = RequestMethod.POST)
-    public void setDeleteAllMarksCreatedAfterDate(@RequestParam CourseRequestForCreateDateUpdate date) throws ParseException {
+    public String setDeleteAllMarksCreatedAfterDate(@RequestParam CourseRequestForCreateDateUpdate date) throws ParseException {
         markServices.getDeleteAllmarkCreatedAfterDate(date.getDate());
+        String deleteAllMarksCreatedAfterDate = "deleteAllMarksCreatedAfterDate Succesfully";
+        slackClient.sendMessage(deleteAllMarksCreatedAfterDate);
+        return deleteAllMarksCreatedAfterDate;
 
     }
 
 
     @RequestMapping(value = "setDeleteMarksByCourseid", method = RequestMethod.POST)
-    public void setDeleteMarksByCourseid(@RequestParam Integer courseid) throws ParseException {
+    public String setDeleteMarksByCourseid(@RequestParam Integer courseid) throws ParseException {
         markServices.getDeleteCoursesByCourseid(courseid);
+        String setDeleteMarksByCourseid = "setDeleteMarksByCourseid Succesfully";
+        slackClient.sendMessage(setDeleteMarksByCourseid);
+        return setDeleteMarksByCourseid;
+
 
     }
 
 
 
     @RequestMapping(value = "deleteCoursesByCreatedDate", method = RequestMethod.POST)
-    public void setDeleteMarksByCreatedDate(@RequestParam CourseRequestForCreateDateUpdate date) throws ParseException {
+    public String setDeleteMarksByCreatedDate(@RequestParam CourseRequestForCreateDateUpdate date) throws ParseException {
         markServices.getDeletemarksByCreatedDate(date.getDate());
-
+        String deleteCoursesByCreatedDate = "deleteCoursesByCreatedDate Succesfully";
+        slackClient.sendMessage(deleteCoursesByCreatedDate);
+        return deleteCoursesByCreatedDate;
     }
 
     @RequestMapping(value = "deleteCoursesByUpdatedDate", method = RequestMethod.POST)
-    public void setDeleteMarkByUpdatedDate(@RequestParam CourseRequestForCreateDateUpdate date) throws ParseException {
+    public String setDeleteMarkByUpdatedDate(@RequestParam CourseRequestForCreateDateUpdate date) throws ParseException {
         markServices.getsetDeletemarksByUpdatedDate(date.getDate());
+        String deleteCoursesByUpdatedDate = "deleteCoursesByUpdatedDate Successfully";
+        slackClient.sendMessage(deleteCoursesByUpdatedDate);
+        return deleteCoursesByUpdatedDate;
 
     }
 
@@ -142,13 +183,19 @@ public class MarkController {
     @RequestMapping(value="addMark",method = RequestMethod.POST)
     public String addMark(){
         markServices.addMark();
-        return "Mark Add Successfully";
+        String mark = "Mark Add Successfully";
+        slackClient.sendMessage(mark);
+        return mark;
 
     }
 
     @RequestMapping(value="updateCreatedDateByUserInput",method = RequestMethod.POST)
-    public void setCreatDateByUserInput(@RequestBody CourseRequestForCreateDateUpdate data) throws ParseException {
+    public String setCreatDateByUserInput(@RequestBody CourseRequestForCreateDateUpdate data) throws ParseException {
         markServices.setCreatDateByUserInput(data.getDate(), data.getId());
+        String updateCreatedDateByUserInput = "updateCreatedDateByUserInput Successfully";
+        slackClient.sendMessage(updateCreatedDateByUserInput);
+        return updateCreatedDateByUserInput;
+
     }
 
 

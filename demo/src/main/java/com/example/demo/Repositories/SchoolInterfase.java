@@ -34,7 +34,7 @@ public interface SchoolInterfase extends JpaRepository<School, Integer> {
 
     @Query(value = "SELECT s from School s where s.id=(SELECT max(s.id) from School s)")
     School getLatestSchools();
-    @Query(value = "UPDATE Student s SET s.isActive = false WHERE s.id =:id")
+    @Query(value = "update School s SET s.isActive = false WHERE s.id =:id")
     School getIdToDeleteSchoolById(@Param("id") Integer id);
 
     @Query(value ="select s from School s where s.updatedDate=(select max(updatedDate) from School)")

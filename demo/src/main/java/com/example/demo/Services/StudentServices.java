@@ -44,9 +44,9 @@ public List<Student> getAllStudent(){
         return studentInterface.getStudentById(id);
     }
 
-    public Student getByStudentName(String schoolName)
+    public Student getByStudentName(String stusentName)
     {
-        return studentInterface.getByStudentName(schoolName);
+        return studentInterface.getByStudentName(stusentName);
     }
     public List<Student> getStudentsBySchoolName(String schoolName){
         School school = schoolInterfase.getBySchoolName(schoolName);
@@ -90,10 +90,12 @@ public List<Student> getAllStudent(){
 
 
 
-    public Student getStudentCreatedAfterDate(String date) throws ParseException {
+    public List<Student> getStudentCreatedAfterDate(String date) throws ParseException {
+
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date datecreated = format.parse(date);
-        return studentInterface.getStudentCreatedAfterDate(datecreated);
+        List<Student> student = (List<Student>) studentInterface.getStudentCreatedAfterDate(datecreated);
+        return student ;
     }
 
 

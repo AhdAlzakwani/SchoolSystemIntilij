@@ -46,7 +46,7 @@ public interface MarkInterfase extends CrudRepository<Mark, Integer> {
     @Query(value ="select s from Course s where s.updatedDate=(select max(updatedDate) from Course)")
     Mark getLatestUpdated();
     @Query(value ="select s from Mark s where s.createdDate >= :date")
-    <list>Mark getMarkCreatedAfterDate(@Param("date") Date date);
+    List<Mark> getMarkCreatedAfterDate(@Param("date") Date date);
 
 
 

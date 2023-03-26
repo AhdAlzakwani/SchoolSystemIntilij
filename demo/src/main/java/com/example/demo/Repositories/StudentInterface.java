@@ -47,10 +47,10 @@ public interface StudentInterface extends CrudRepository<Student, Integer> {
 
     @Query(value ="select s from Student s where s.createdDate >= :date")
     <list>Student getStudentCreatedAfterDate(@Param("date") Date date);
-    @Query(value="select s from School s where s.createdDate = :createdDate")
+    @Query(value="select s from Student s where s.createdDate = :createdDate")
     Student getStudentByCreatedDate(@Param("createdDate") Date date);
 
-    @Query(value="select s from School s where s.updatedDate = :updatedDate")
+    @Query(value="select s from Student s where s.updatedDate = :updatedDate")
     Student getStudentByUpdatedDate(@Param("updatedDate") Date date);
 
     @Query(value = "UPDATE Student s SET s.isActive = false")

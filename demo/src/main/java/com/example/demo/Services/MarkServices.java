@@ -94,7 +94,7 @@ public class MarkServices {
 
     }
 
-    public Mark getmarkCreatedAfterDate(String date) throws ParseException {
+    public List<Mark> getmarkCreatedAfterDate(String date) throws ParseException {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date datecreated = format.parse(date);
         return markInterfase.getMarkCreatedAfterDate(datecreated);

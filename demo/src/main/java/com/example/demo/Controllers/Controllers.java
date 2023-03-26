@@ -4,10 +4,8 @@ import com.example.demo.Models.Course;
 import com.example.demo.Models.Mark;
 import com.example.demo.Models.School;
 import com.example.demo.Models.Student;
-import com.example.demo.Services.CourseServices;
-import com.example.demo.Services.MarkServices;
-import com.example.demo.Services.SchoolServices;
-import com.example.demo.Services.StudentServices;
+import com.example.demo.Services.*;
+import com.example.demo.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -40,6 +38,8 @@ public class Controllers {
     @Autowired
     MarkServices markServices  ;
 
+    @Autowired
+    SlackClient slackClient;
 
 
 
@@ -83,5 +83,11 @@ public class Controllers {
 
         return markServices.getMarksByCourseName(CourseName);
 
+    }
+
+    @GetMapping(value="SlackMassage")
+    public void massage(@RequestParam String text){
+
+        slackClient.sendMessage(text);
     }
 }
